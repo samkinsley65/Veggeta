@@ -1,0 +1,59 @@
+import matplotlib.pyplot as plt
+
+def calculate_bmi(weight, height):
+    """Calculate BMI given weight (kg) and height (m)."""
+    bmi = weight / (height ** 2)
+    return round(bmi, 2)
+
+def bmi_category(bmi):
+    """Categorize BMI based on WHO global standards."""
+    if bmi < 16:
+        return "Severely underweight"
+    elif 16 <= bmi < 17:
+        return "Moderately underweight"
+    elif 17 <= bmi < 18.5:
+        return "Mildly underweight"
+    elif 18.5 <= bmi < 25:
+        return "Normal weight"
+    elif 25 <= bmi < 30:
+        return "Overweight"
+    elif 30 <= bmi < 35:
+        return "Obese Class I (Moderate)"
+    elif 35 <= bmi < 40:
+        return "Obese Class II (Severe)"
+    else:
+        return "Obese Class III (Very Severe)"
+
+def plot_bmi_chart():
+    """Plot a bar chart of BMI categories according to WHO standards."""
+    categories = [
+        "Severely underweight", "Moderately underweight", "Mildly underweight",
+        "Normal weight", "Overweight", "Obese Class I", "Obese Class II", "Obese Class III"
+    ]
+    bmi_ranges = [15, 16.5, 18, 24.9, 29.9, 34.9, 39.9, 45]
+    
+    plt.figure(figsize=(10, 6))
+    bars = plt.barh(categories, bmi_ranges, color=['#f9a1a1', '#fcbf49', '#f7e34b', '#8ddf88', '#ffc107', '#ff9f68', '#ff7875', '#ff5252'])
+    
+    plt.xlabel('BMI')
+    plt.title('BMI Categories According to WHO Standards')
+    plt.xlim(10, 50)
+    plt.show()
+
+# Get user input
+try:
+    weight = float(input("Enter your weight in kg: "))
+    height = float(input("Enter your height in meters: "))
+    
+    # Calculate and categorize BMI
+    bmi = calculate_bmi(weight, height)
+    category = bmi_category(bmi)
+    
+    print(f"Your BMI is: {bmi}")
+    print(f"Category: {category}")
+    
+    # Plot BMI chart
+    plot_bmi_chart()
+
+except ValueError:
+    print("Please enter valid numbers for weight and height.")
